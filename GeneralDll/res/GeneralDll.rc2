@@ -1,0 +1,59 @@
+//
+// GeneralDll.RC2 - Microsoft Visual C++ 不会直接编辑的资源
+//
+#include "VersionNum.h"
+
+#ifdef APSTUDIO_INVOKED
+#error 此文件不能用 Microsoft Visual C++ 编辑
+#endif //APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+
+#define VN_FILEVERSION 2,0,0,##VN_FILEVERSION_BUILD_NUM
+#define VN_PRODUCTVERSION 2,0,0,##VN_PRODUCTVERSION_BUILD_NUM
+
+
+#define VN_STR_FILEVERSION TOSTRING(2.0.0.##VN_FILEVERSION_LAST_NUM)
+#define VN_STR_PRODUCTVERSION TOSTRING(2.0.0.##VN_PRODUCTVERSION_LAST_NUM)
+
+VS_VERSION_INFO VERSIONINFO
+  FILEVERSION       VN_FILEVERSION
+  PRODUCTVERSION    VN_PRODUCTVERSION
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+			 VALUE "Comments", "Powered By Yisufuyou\0"
+            VALUE "CompanyName", "郭玉昆"
+            VALUE "FileDescription", "济南市中心医院生殖医学科病例打印程序"
+            VALUE "FileVersion", VN_STR_FILEVERSION
+            VALUE "InternalName", "PciCoreDll.dll"
+            VALUE "LegalCopyright", "(C) 郭玉昆。保留所有权利。"
+            VALUE "OriginalFilename", "PciCoreDll.dll"
+            VALUE "PrivateBuild", "2010-2-22 23:31:31\0"
+            VALUE "ProductName", "病例打印程序"
+            VALUE "ProductVersion", VN_STR_PRODUCTVERSION
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
