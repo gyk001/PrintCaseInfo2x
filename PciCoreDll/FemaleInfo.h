@@ -11,7 +11,7 @@ public:
 	CFemaleInfo();
 	virtual ~CFemaleInfo();
 	virtual void Save2_1(CArchive& ar);
-	virtual void Serialize(CArchive& ar);
+	virtual void Serialize(CArchive& ar,int marjorVersion, int minjorVersion);
 	void operator=(const CFemaleInfo& fi);
 public:
 	/*《女方信息：》*/
@@ -46,7 +46,7 @@ public:
 	CString                 mi_niao_xi_tong_gan_ran;                        //泌尿系感染    *无|有
 	CString                 xing_chuan_bo_ji_bing_shi;       //性传播疾病史  *无|有
 	CString                 lan_wei_yan;                    //阑尾炎                *无|有
-	CString                 pen_qiang_yan;                  //盆腔炎                *无|有
+	CCascadeString                 pen_qiang_yan;                  //盆腔炎                *无|有
 	CCascadeString          cs_shou_shu_shi;                   //手术史                *无|有  -填空（有）
 	CString                 ji_wang_qi_ta;                  //其他                  -填空
 
@@ -56,7 +56,7 @@ public:
 	CString                 xi_du;                  //吸毒          *无|有
 	CCascadeString          cs_yao_wu_guo_min;//药物过敏史   *无|有  -填空（有）
 	CString                 zhong_da_jing_shen_ci_ji;                       //重大精神刺激史        *无|有
-	CCascadeString  cs_jian_kang_zhuang_kuang; 
+	CCascadeString			cs_jian_kang_zhuang_kuang; 
 	CCascadeString          cs_chu_sheng_que_xian;//出生缺陷           *无|有  -填空（有）
 	/*《女方信息-月经史》*/
 	int                     chu_chao;                       //初潮          -数字

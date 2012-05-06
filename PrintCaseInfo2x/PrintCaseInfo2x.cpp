@@ -51,9 +51,9 @@ CPrintCaseInfo2xApp::CPrintCaseInfo2xApp()
 // 唯一的一个 CPrintCaseInfo2xApp 对象
 
 CPrintCaseInfo2xApp theApp;
-//程序版本号 2.2
+//程序版本号 2.3
 const int appMarjorVersion = 2;
-const int appMinjorVersion = 2;
+const int appMinjorVersion = 3;
 
 //支持的文件版本号最低为 2.1
 const int minSupportMarjorVersion = 2;

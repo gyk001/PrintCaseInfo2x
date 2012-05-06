@@ -38,6 +38,8 @@ private:
 	CFont mainFont;
 	CFont boldFont;
 	CFont smaleFont;
+protected:
+		CString getPrintStringForNumWithUnit(CString num,CString unit);
 public:	//保存视图最小化时具有焦点的控件的句柄
 	afx_msg LRESULT OnSaveFocus(WPARAM wParam, LPARAM lParam);
 	afx_msg BOOL OnUpdateDocFromView();
@@ -60,6 +62,7 @@ public:	//保存视图最小化时具有焦点的控件的句柄
 	void NewLine(CDC* pDC, CPrintInfo* pInfo ,  bool force = false );
 	void NewHalfLine(CDC* pDC, CPrintInfo* pInfo , bool force);
 	void NewSmallHalfLine(CDC* pDC, CPrintInfo* pInfo , bool force);
+
 public:
 	virtual void OnInitialUpdate();
 };

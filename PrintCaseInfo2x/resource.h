@@ -67,6 +67,8 @@
 #define IDC_COMBO_F_TING_JING           1026
 #define IDC_EDIT_XIAN_BING_SHI          1026
 #define IDC_COMBO_JIN_QING_JIE_HUN      1027
+#define IDC_EDIT_F_PEN_QIANG_YA         1027
+#define IDC_EDIT_F_PEN_QIANG_YAN        1027
 #define IDC_COMBO_ZAI_HUN               1028
 #define IDC_COMBO_F_CS_YAO_WU_GUO_MIN   1029
 #define IDC_COMBO_F_CI_XI_YAN           1030
@@ -315,7 +317,6 @@
 #define IDC_STATIC_BLOG                 1339
 #define IDC_STATIC_QQ                   1339
 #define IDC_STATIC_BMP                  1340
-#define IDC_STATIC_BLOG2                1340
 #define IDC_STATIC_GMAIL                1340
 #define IDC_STATIC_VERSION              1341
 #define ID_32771                        32771

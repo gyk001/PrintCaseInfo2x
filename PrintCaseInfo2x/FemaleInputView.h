@@ -65,10 +65,10 @@ public:
     CMyComboBox ctrl_combo_ji_zhu_si_zhi;
     CMyComboBox ctrl_combo_shou_shu_shi;
 	CMyComboBox ctrl_combo_jian_kang_zhaung_kuang;
-
+	CMyComboBox ctrl_combo_pen_qiang_yan;
 public:
 	//更新一个控件的数据
-	virtual void DoDataExchangeOneCtrl( UINT id , CDataExchange* pDX);
+	//virtual void DoDataExchangeOneCtrl( UINT id , CDataExchange* pDX);
 
 };
 

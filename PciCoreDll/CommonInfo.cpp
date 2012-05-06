@@ -20,7 +20,7 @@ CCommonInfo::~CCommonInfo()
 
 
 // CCommonInfo ³ÉÔ±º¯Êý
-void CCommonInfo::Serialize(CArchive& ar)
+void CCommonInfo::Serialize(CArchive& ar,int marjorVersion, int minjorVersion)
 {
     if (ar.IsStoring())
     {
@@ -32,7 +32,7 @@ void CCommonInfo::Serialize(CArchive& ar)
         ar<<ni_xing_zhi_liao_fang_an;       
         ar<<fu_zhu_jian_cha_yi_chang_jie_guo; 
         ar<<bing_cheng_ji_lu_qi_ta;         
-        ar<<bing_cheng_ji_lu_yi_shi;    
+        ar<<bing_cheng_ji_lu_yi_shi;
     }
     else
     {
@@ -44,20 +44,21 @@ void CCommonInfo::Serialize(CArchive& ar)
         ar>> ni_xing_zhi_liao_fang_an;       
         ar>> fu_zhu_jian_cha_yi_chang_jie_guo; 
         ar>> bing_cheng_ji_lu_qi_ta;         
-        ar>> bing_cheng_ji_lu_yi_shi;    
+        ar>> bing_cheng_ji_lu_yi_shi; 
+		
 
     }
     date_ye_mei .Serialize64( ar );       
     date_shou_ci_bing_cheng_ji_lu.Serialize64( ar ) ;  
 }
+
 void CCommonInfo::operator=(const CCommonInfo& ci)
 {
-         bing_li_hao = ci. bing_li_hao;
+        bing_li_hao = ci. bing_li_hao;
         date_ye_mei = ci. date_ye_mei;
         date_shou_ci_bing_cheng_ji_lu = ci. date_shou_ci_bing_cheng_ji_lu;
-        bing_li_te_dian = ci. bing_li_te_dian;
-    //    zhen_liao_ji_hua = ci. zhen_liao_ji_hua;
-        ni_xing_AIH_fang_shi = ci. ni_xing_AIH_fang_shi;
+        bing_li_te_dian = ci.bing_li_te_dian;
+        ni_xing_AIH_fang_shi = ci.ni_xing_AIH_fang_shi;
         fu_he_AIH_zhi_zheng = ci. fu_he_AIH_zhi_zheng;
         jin_ji_zheng = ci. jin_ji_zheng;
         ni_xing_zhi_liao_fang_an = ci. ni_xing_zhi_liao_fang_an;

@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\BIN\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\TEMP\$(ProjectName)$(ConfigurationName)"
+			OutputDirectory="R:\vsoutput\$(ConfigurationName)"
+			IntermediateDirectory="R:\vsoutput\$(ProjectName)$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="2"
 			CharacterSet="1"
@@ -102,8 +102,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\BIN\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\TEMP\$(ProjectName)$(ConfigurationName)"
+			OutputDirectory="R:\vsoutput\$(ConfigurationName)"
+			IntermediateDirectory="R:\vsoutput\$(ProjectName)$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="2"
 			CharacterSet="1"

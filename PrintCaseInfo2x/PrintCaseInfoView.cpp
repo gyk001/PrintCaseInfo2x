@@ -181,7 +181,7 @@ void CPrintCaseInfoView::SetPageMargin(CDC *pDC, CPrintInfo *pInfo, int l, int t
 }
 void CPrintCaseInfoView::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* pInfo)
 {
-    pInfo->m_strPageDesc=_T("病例打印预览 第%u页\n病例打印预览 第%u-%u页\n");
+    pInfo->m_strPageDesc=_T("病历打印预览 第%u页\n病历打印预览 第%u-%u页\n");
     if ( ! pInfo->m_lpUserData)
     {
         pInfo->m_lpUserData=new CPrintInfoEx(pInfo->m_rectDraw);
@@ -250,7 +250,7 @@ void CPrintCaseInfoView::PageHeaderFooter(CDC* pDC, CPrintInfo* pInfo, CString n
         pDC->TextOut(mid, pInfo->m_rectDraw.top , _T("人类辅助生殖男方病历（2）"));
         break;
     case 7:
-        pDC->TextOut(mid, pInfo->m_rectDraw.top , _T("人类辅助生殖病例"));
+        pDC->TextOut(mid, pInfo->m_rectDraw.top , _T("人类辅助生殖病历"));
         break;
     }
     pDC->SetTextAlign(oldTextAlign);
@@ -291,6 +291,19 @@ void CPrintCaseInfoView::PageHeaderFooter(CDC* pDC, CPrintInfo* pInfo, CString n
     pDC->SetTextAlign(oldTextAlign);
 }
 
+CString CPrintCaseInfoView::getPrintStringForNumWithUnit(CString num,CString unit){
+	CString res = _T("");
+	if( num.GetLength() != 0 ){
+		//输入值是数字
+		if( _wtof( num ) != 0 ){
+			res = num + _T(" ")+ unit;
+		}else{
+			res = num;
+		}
+	}
+
+	return res;
+}
 void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
 {
     pDC->LineTo(100,100);
@@ -374,7 +387,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pDC->SelectObject( &ft);
 		//VER_DO:2.2 
         //PrintText(pDC,pInfo, _T("夫精人工授精病历") , 0 , 0 , true );
-        PrintText(pDC,pInfo, _T("人类辅助生殖技术病历") , 0 , 0 , true );
+        PrintText(pDC,pInfo, _T("人类辅助生殖病历") , 0 , 0 , true );
         //空一行
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT);        
@@ -556,6 +569,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight(LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
+		
         pDC->SelectObject(&boldFont);
         PrintText(pDC,pInfo,_T("主诉："),0);
         text = pFemaleInfo->zhu_su;
@@ -597,7 +611,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         NewLine(pDC,pInfo);
         NewHalfLine( pDC ,pInfo , true);
         PrintTextMult2(pDC,pInfo, toString( pFemaleInfo->lan_wei_yan , _T(" 阑尾炎") )  , 10);
-        PrintTextMult2(pDC,pInfo, toString( pFemaleInfo->pen_qiang_yan , _T("盆腔炎") ) );
+		PrintTextMult2(pDC,pInfo, pFemaleInfo->pen_qiang_yan.toString( _T("盆腔炎") ) );
         NewLine(pDC,pInfo);
         NewHalfLine( pDC ,pInfo , true);
         PrintTextMult2(pDC,pInfo, pFemaleInfo->cs_shou_shu_shi.toString(_T(" 手术史")) ,4);
@@ -617,7 +631,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         PrintTextMult2(pDC,pInfo, toString( pFemaleInfo->zhong_da_jing_shen_ci_ji , _T("重大精神刺激") )  ,4);
         NewLine(pDC,pInfo);
         NewHalfLine( pDC ,pInfo , true);
-        PrintTextMult2(pDC,pInfo, pFemaleInfo->cs_chu_sheng_que_xian.toString( _T(" 健康状况") ) ,6);
+        PrintTextMult2(pDC,pInfo, pFemaleInfo->cs_jian_kang_zhuang_kuang.toString( _T(" 健康状况") ) ,6);
         PrintTextMult2(pDC,pInfo, pFemaleInfo->cs_chu_sheng_que_xian.toString(_T("出生缺陷")));
 
         pInfoEx->setLeft(pInfo->m_rectDraw.left);
@@ -875,11 +889,11 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
         PrintTextScript(pDC , pInfo , _T(" E"),_T("2") , false , 0 ) ;
-        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_E_2 ,  _T(" %.2f pg/ml") ));
+        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_E_2 ,  _T(" %.2f pmol/L") ));
         pInfoEx->MoveRight();
         pInfoEx->SetRight(pInfo->m_rectDraw.right);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_P ,  _T(" P %.2f ng/ml") ));
+        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_P ,  _T(" P %.2f nmol/L") ));
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
         pInfoEx->setLeft(pInfo->m_rectDraw.left+3*LINE_HEIGHT);
@@ -891,11 +905,11 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveRight();
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_PRL ,  _T(" PRL %.2f ng/ml") ));
+        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_PRL ,  _T(" PRL %.2f miu/L") ));
         pInfoEx->MoveRight();
         pInfoEx->SetRight(pInfo->m_rectDraw.right);
         pInfoEx->drawBox(pDC);      
-        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_T ,  _T(" T %.2f ng/ml") ));
+        PrintText(pDC,pInfo,toStringFomat( pFemaleInfo->EN_T ,  _T(" T %.2f nmol/L") ));
 
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->rc.top = tmpY;
@@ -1109,7 +1123,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->setLeft(pInfo->m_rectDraw.left);
         pInfoEx->drawBox(pDC);
         PrintText(pDC,pInfo,_T("宫  腔  镜"),0,0,true);   
-        //////////////////////////////////////////////////////////////////////////*/
+        //////////////////////////////////////////////////////////////////////////
         break;
     case 4:
         // pDC->Rectangle(pInfo->m_rectDraw);
@@ -1174,19 +1188,19 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveRight();
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->luan_pao_zhi_jing1 , 0 ,0, true );
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->luan_pao_zhi_jing1 ,_T("cm")), 0 ,0, true );
         pInfoEx->MoveRight();
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->luan_pao_zhi_jing2 , 0 , 0,  true );
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->luan_pao_zhi_jing2 ,_T("cm")) , 0 , 0,  true );
         pInfoEx->MoveRight();
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->luan_pao_zhi_jing3, 0 ,0, true );
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->luan_pao_zhi_jing3 ,_T("cm")), 0 ,0, true );
         pInfoEx->MoveRight();
         pInfoEx->SetRight(pInfo->m_rectDraw.right);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->luan_pao_zhi_jing4 , 0 ,0, true );     
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->luan_pao_zhi_jing4 ,_T("cm")), 0 ,0, true );     
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
         pInfoEx->setLeft(pInfo->m_rectDraw.left);
@@ -1198,19 +1212,19 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveRight();
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->zi_gong_nei_mo1 , 0 ,0, true );
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->zi_gong_nei_mo1 ,_T("cm")) , 0 ,0, true );
         pInfoEx->MoveRight();
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->zi_gong_nei_mo2 , 0,0 , true );
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->zi_gong_nei_mo2 ,_T("cm")) , 0,0 , true );
         pInfoEx->MoveRight();
         pInfoEx->setRectWidth(tmpX);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->zi_gong_nei_mo3 , 0 ,0, true );
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->zi_gong_nei_mo3 ,_T("cm")), 0 ,0, true );
         pInfoEx->MoveRight();
         pInfoEx->SetRight(pInfo->m_rectDraw.right);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo,pFemaleInfo->zi_gong_nei_mo4 , 0  ,0, true );
+        PrintText(pDC,pInfo,getPrintStringForNumWithUnit(pFemaleInfo->zi_gong_nei_mo4 ,_T("cm")) , 0  ,0, true );
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
         pInfoEx->setLeft(pInfo->m_rectDraw.left);
@@ -1297,7 +1311,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         PrintText(pDC,pInfo,toString( pMaleInfo->date_chu_zhen , _T("初诊时间：") ));    
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
-        pInfoEx->setRectHeight(LINE_HEIGHT);
+        pInfoEx->setRectHeight( LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         pDC->SelectObject(&boldFont);
         PrintText(pDC,pInfo,_T("主诉：") , 1 );
@@ -1356,13 +1370,9 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->drawBox(pDC);
         pInfoEx->setRectHeight( LINE_HEIGHT );
         pInfoEx->MoveDown();
-        pInfoEx->setRectHeight( LINE_HEIGHT );
-        PrintText(pDC,pInfo, pMaleInfo->ci_xi_yan.toString( _T(" 吸烟:%d支/天") ,_T(" 吸烟:无") ) );  
-        PrintText( pDC , pInfo , toString( pMaleInfo->xu_jiu , _T( "酗酒" ) ) );
-        pInfoEx->MoveDown();
-        pInfoEx->setRectHeight( LINE_HEIGHT );
-        PrintText(pDC,pInfo, pMaleInfo->cs_yao_wu_guo_min.toString( _T(" 药物过敏史") ) );
-        pInfoEx->MoveDown();
+
+
+
         pInfoEx->setRectHeight( LINE_HEIGHT );
         PrintText( pDC , pInfo , toString( pMaleInfo->zhong_da_jing_sheng_ci_ji , _T( " 重大精神刺激史" ) ) );
         pInfoEx->MoveDown();
@@ -1370,10 +1380,20 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         PrintText (pDC , pInfo , toString( pMaleInfo->jian_kang_zhuang_kuang_guo_qu , _T( " 健康状况：过去" ) ) );
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );
-        PrintText( pDC , pInfo , toString( pMaleInfo->jian_kang_zhuang_kuang_xian_zai , _T( "           现在" ) ) );
+        PrintText( pDC , pInfo , toString( pMaleInfo->jian_kang_zhuang_kuang_xian_zai , _T( "          现在" ) ) );
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );    
-        PrintText( pDC , pInfo , pMaleInfo->cs_chu_sheng_que_xian .toString(  _T( " 出生缺陷" ) ) );
+        PrintText( pDC , pInfo , pMaleInfo->cs_chu_sheng_que_xian.toString(  _T( " 出生缺陷" ) ) );
+
+
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight( LINE_HEIGHT );
+        PrintText(pDC,pInfo, pMaleInfo->ci_xi_yan.toString( _T(" 吸烟:%d支/天") ,_T(" 吸烟:无") ) );  
+        PrintText( pDC , pInfo , toString( pMaleInfo->xu_jiu , _T( "酗酒" ) ) );
+        pInfoEx->MoveDown();
+        pInfoEx->setRectHeight( LINE_HEIGHT );
+        PrintText(pDC,pInfo, pMaleInfo->cs_yao_wu_guo_min.toString( _T(" 药物过敏史") ) );
+       
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );    
         //////////////////////////////////////////////////////////////////////////
@@ -1582,6 +1602,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
 
         PrintText(pDC , pInfo ,  toString( pMaleInfo->zhi_yuan_ti , _T(" 支原体") ) );  
 		PrintText(pDC , pInfo ,  toString( pMaleInfo->yi_yuan_ti , _T(" 衣原体") ) );  
+		
         /*
 		pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );
@@ -1682,7 +1703,9 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->setRectHeight( 6* LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         pInfoEx->setRectHeight(  LINE_HEIGHT);
-        PrintText(pDC , pInfo , _T("病例特点") , 1); 
+		pDC->SelectObject(&boldFont);
+		PrintText(pDC , pInfo , _T("病例特点：") , 1); 
+		pDC->SelectObject(&mainFont);
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( 5* LINE_HEIGHT);
         pInfoEx->rc.left += MUTI_TEXT_BLANK_WIDTH;
@@ -1695,34 +1718,89 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->setRectHeight( 6* LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         pInfoEx->setRectHeight(  LINE_HEIGHT);
-        PrintText(pDC , pInfo , _T("初步诊断") , 1); 
+		pDC->SelectObject(&boldFont);
+        PrintText(pDC , pInfo , _T("初步诊断：") , 1); 
+		pDC->SelectObject(&mainFont);
         pInfoEx->MoveDown();
         pInfoEx->rc.left += MUTI_TEXT_BLANK_WIDTH;
         pInfoEx->rc.right -= MUTI_TEXT_BLANK_WIDTH;
         pInfoEx->setRectHeight( 5* LINE_HEIGHT);
+		//TODO:内容来源
         PrintTextMult2(pDC,pInfo, pFemaleInfo->zhen_duan+_T("\r\n")+pMaleInfo->chu_bu_zhen_duan);
         pInfoEx->setLeft( pInfo->m_rectDraw.left );
 
         pInfoEx->SetRight( pInfo->m_rectDraw.right );
         //////////////////////////////////////////////////////////////////////////
+		
         pInfoEx->MoveDown();
-        pInfoEx->setRectHeight(  2*LINE_HEIGHT);
+        pInfoEx->setRectHeight(  LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC , pInfo , _T("诊疗计划"  ) );       
-        NewLine( pDC , pInfo );
+		pDC->SelectObject(&boldFont);
+        PrintText(pDC , pInfo , _T("诊疗计划"  ),0 ,0, true ); 
+		pDC->SelectObject(&mainFont);
+        
         //////////////////////////////////////////////////////////////////////////
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(2*LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight( 2*LINE_HEIGHT);
+       
+		pDC->SelectObject(&boldFont);
+		PrintTextMult2(pDC,pInfo,_T("1、拟行AIH的方式：") , 0 );
+		tmpX = pInfoEx->cur.x;
+		pInfoEx->setLeft( pInfoEx->rc.left + 15);
+		pInfoEx->SetRight( pInfoEx->rc.right - 15);
+		pInfoEx->cur.x =tmpX ;
+        pDC->SelectObject(&mainFont);
+        PrintTextMult2(pDC,pInfo,pCommonInfo->ni_xing_AIH_fang_shi);
+		pInfoEx->SetRight(pInfo->m_rectDraw.right);
+		pInfoEx->setLeft(pInfo->m_rectDraw.left);
+/*
         pInfoEx->MoveDown();
-        pInfoEx->setRectHeight(  2*LINE_HEIGHT);
+        pInfoEx->setRectHeight(  LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         PrintText(pDC , pInfo , toString( pCommonInfo->ni_xing_AIH_fang_shi , _T("1、拟行AIH的方式")  ) );
+		*/
 		//////////////////////////////////////////////////////////////////////////
-/*       TODODO
+
 		pInfoEx->MoveDown();
-        pInfoEx->setRectHeight(  2*LINE_HEIGHT);
+        pInfoEx->setRectHeight(3*LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight( 3*LINE_HEIGHT);
+       
+		pDC->SelectObject(&boldFont);
+        PrintTextMult2(pDC,pInfo,_T("2、符合AIH的指征：") , 0 );
+		tmpX = pInfoEx->cur.x;
+		pInfoEx->setLeft( pInfoEx->rc.left + 15);
+		pInfoEx->SetRight( pInfoEx->rc.right - 15);
+		pInfoEx->cur.x =tmpX ;
+        pDC->SelectObject(&mainFont);
+        PrintTextMult2(pDC,pInfo,pCommonInfo->fu_he_AIH_zhi_zheng);
+		pInfoEx->SetRight(pInfo->m_rectDraw.right);
+		pInfoEx->setLeft(pInfo->m_rectDraw.left);
+/*
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight( 3* LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight(  LINE_HEIGHT);
+        PrintText(pDC , pInfo , _T("2、符合AIH的指征：") , 1); 
+        pInfoEx->MoveDown();
+        pInfoEx->rc.left += MUTI_TEXT_BLANK_WIDTH;
+        pInfoEx->rc.right -= MUTI_TEXT_BLANK_WIDTH;
+        pInfoEx->setRectHeight( 2* LINE_HEIGHT);
+		//TODO:内容来源
+        PrintTextMult2(pDC,pInfo, pCommonInfo->fu_he_AIH_zhi_zheng  );
+        pInfoEx->setLeft( pInfo->m_rectDraw.left );
+        pInfoEx->SetRight( pInfo->m_rectDraw.right );
+*/
+/*
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(  3*LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         PrintText(pDC , pInfo , toString( pCommonInfo->fu_he_AIH_zhi_zheng , _T("2、符合AIH的指征")  ) ); 
-		*/
+*/		
 		//计算行数
+		/*
 		CString a = pCommonInfo->fu_he_AIH_zhi_zheng;
 		a = a.Trim();
 		int index = 0;
@@ -1748,7 +1826,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
 
         pInfoEx->setLeft( pInfo->m_rectDraw.left);
 		pInfoEx->SetRight( pInfo->m_rectDraw.right);
-
+*/
 /*
 		pInfoEx->MoveDown();
         pInfoEx->setRectHeight(  lcount*LINE_HEIGHT);
@@ -1758,32 +1836,103 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
 
 		
         //////////////////////////////////////////////////////////////////////////
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(2*LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight( 2*LINE_HEIGHT);
+       
+		pDC->SelectObject(&boldFont);
+        PrintTextMult2(pDC,pInfo,_T("3、禁忌症：") , 0 );
+		tmpX = pInfoEx->cur.x;
+		pInfoEx->setLeft( pInfoEx->rc.left + 15);
+		pInfoEx->SetRight( pInfoEx->rc.right - 15);
+		pInfoEx->cur.x =tmpX ;
+        pDC->SelectObject(&mainFont);
+        PrintTextMult2(pDC,pInfo,pCommonInfo->jin_ji_zheng );
+		pInfoEx->SetRight(pInfo->m_rectDraw.right);
+		pInfoEx->setLeft(pInfo->m_rectDraw.left);
+/*
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight(  2*LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC , pInfo , toString( pCommonInfo->jin_ji_zheng , _T("3、禁忌症")  ) );   
+        PrintText(pDC , pInfo , toString( pCommonInfo->jin_ji_zheng , _T("3、禁忌症")  ) );  
+		*/
         //////////////////////////////////////////////////////////////////////////
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(2*LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight( 2*LINE_HEIGHT);
+       
+		pDC->SelectObject(&boldFont);
+        PrintTextMult2(pDC,pInfo,_T("4、拟行治疗方案：") , 0 );
+		tmpX = pInfoEx->cur.x;
+		pInfoEx->setLeft( pInfoEx->rc.left + 15);
+		pInfoEx->SetRight( pInfoEx->rc.right - 15);
+		pInfoEx->cur.x =tmpX ;
+        pDC->SelectObject(&mainFont);
+        PrintTextMult2(pDC,pInfo,pCommonInfo->ni_xing_zhi_liao_fang_an );
+		pInfoEx->SetRight(pInfo->m_rectDraw.right);
+		pInfoEx->setLeft(pInfo->m_rectDraw.left);
+		/*
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight(2*  LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC , pInfo , toString( pCommonInfo->ni_xing_zhi_liao_fang_an , _T("4、拟行治疗方案")  ) );  
+        PrintText(pDC , pInfo , toString( pCommonInfo->ni_xing_zhi_liao_fang_an , _T("4、拟行治疗方案")  ) );
+		*/
         //////////////////////////////////////////////////////////////////////////
+			pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(2*LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight( 2*LINE_HEIGHT);
+       
+		pDC->SelectObject(&boldFont);
+        PrintTextMult2(pDC,pInfo,_T("5、辅助检查异常结果：") , 0 );
+		tmpX = pInfoEx->cur.x;
+		pInfoEx->setLeft( pInfoEx->rc.left + 15);
+		pInfoEx->SetRight( pInfoEx->rc.right - 15);
+		pInfoEx->cur.x =tmpX ;
+        pDC->SelectObject(&mainFont);
+        PrintTextMult2(pDC,pInfo,pCommonInfo->fu_zhu_jian_cha_yi_chang_jie_guo );
+		pInfoEx->SetRight(pInfo->m_rectDraw.right);
+		pInfoEx->setLeft(pInfo->m_rectDraw.left);
+		/*
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight(  2*LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         PrintText(pDC , pInfo , toString( pCommonInfo->fu_zhu_jian_cha_yi_chang_jie_guo , _T("5、辅助检查异常结果")  ) );  
+		*/
         //////////////////////////////////////////////////////////////////////////
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(2*LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight( 2*LINE_HEIGHT);
+       
+		pDC->SelectObject(&boldFont);
+        PrintTextMult2(pDC,pInfo,_T("6、其他：") , 0 );
+		tmpX = pInfoEx->cur.x;
+		pInfoEx->setLeft( pInfoEx->rc.left + 15);
+		pInfoEx->SetRight( pInfoEx->rc.right - 15);
+		pInfoEx->cur.x =tmpX ;
+        pDC->SelectObject(&mainFont);
+        PrintTextMult2(pDC,pInfo,pCommonInfo->bing_cheng_ji_lu_qi_ta );
+		pInfoEx->SetRight(pInfo->m_rectDraw.right);
+		pInfoEx->setLeft(pInfo->m_rectDraw.left);
+		/*
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight(  2*LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         PrintText(pDC , pInfo , toString( pCommonInfo->bing_cheng_ji_lu_qi_ta , _T("6、其他")  ) );    
+		*/
+		
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( 2*LINE_HEIGHT );
-        pInfoEx->drawBox( pDC ); 
+        //pInfoEx->drawBox( pDC ); 
+		
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );
         pInfoEx->cur.x = pInfoEx->rc.right - 400;
         PrintText(pDC , pInfo , toString( pCommonInfo->bing_cheng_ji_lu_yi_shi , _T("医师")  ) );
+		
     }
 
     pDC->SelectObject(oldBrush);

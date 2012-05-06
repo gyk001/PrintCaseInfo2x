@@ -142,6 +142,7 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_Text_INT(pDX, IDC_EDIT_F_CHAN,pFemaleInfo -> chan);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_F_BING_SHI_XIAO_JIE,pFemaleInfo -> bing_shi_xiao_jie);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_EN_IDENTITY_CARD,pMaleInfo -> EN_identity_card);
+
 	DDX_Text_CSTRING(pDX, IDC_EDIT_C_NI_XING_ZHI_LIAO_FANG_AN,pCommonInfo -> ni_xing_zhi_liao_fang_an);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_C_NI_XING_AIH_FANG_SHI,pCommonInfo -> ni_xing_AIH_fang_shi);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_C_JIN_JI_ZHENG,pCommonInfo -> jin_ji_zheng);
@@ -153,6 +154,8 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_Text_CSTRING(pDX, IDC_EDIT_C_BING_CHENG_JI_LU_QI_TA,pCommonInfo -> bing_cheng_ji_lu_qi_ta);
 	DDX_CBString_CSTRING(pDX, IDC_COMBO_FU_KE_ZI_GONG_LEI_XING,pFemaleInfo -> fu_ke_B_chao_zi_gong_lei_xing);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_ZI_GONG,pFemaleInfo -> zi_gong);
+
+
 
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_ZHONG_DA_JING_SHEN_CI_JI,pFemaleInfo -> zhong_da_jing_shen_ci_ji);
 	CString a = _T("--->")+pFemaleInfo -> zhong_da_jing_shen_ci_ji;
@@ -167,7 +170,8 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_TING_JING,pFemaleInfo -> tong_jing);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_SHEN_ZANG_JI_BING,pFemaleInfo -> shen_zang_ji_bing);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_REN_CHEN,pFemaleInfo -> ren_chen);
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_PEN_QIANG_YAN,pFemaleInfo -> pen_qiang_yan);
+
+
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_MI_NIAO_XI_TONG_GAN_RAN,pFemaleInfo -> mi_niao_xi_tong_gan_ran);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_LAN_WEI_YAN,pFemaleInfo -> lan_wei_yan);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_JING_LIANG,pFemaleInfo -> jing_liang);
@@ -232,6 +236,12 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString_CSTRING(pDX, IDC_COMBO_F_DI_CHONG,pFemaleInfo -> di_chong);
 	DDX_CBString_CSTRING(pDX, IDC_COMBO_F_DAN_CHUN_PAO_ZHEN_BING_DU_II_XING,pFemaleInfo -> dan_chun_pao_zhen_bing_du_II_xing);
 	DDX_CBString_CSTRING(pDX, IDC_COMB_F_NIAO_CHANG_GUI,pFemaleInfo -> niao_chang_gui);
+
+	
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_PEN_QIANG_YAN,pFemaleInfo -> pen_qiang_yan.strBase);
+	DDX_Text_CSTRING(pDX, IDC_EDIT_F_PEN_QIANG_YAN,pFemaleInfo -> pen_qiang_yan.strMore);
+
+
 	DDX_DateTimeCtrl_CTIME(pDX, IDC_DATETIMEPICKER_F_DATE_LUO_KUAN ,pFemaleInfo -> nv_date_luo_kuan);
 	DDX_DateTimeCtrl_CTIME(pDX, IDC_DATETIMEPICKER_C_DATE_YE_MEI ,pCommonInfo -> date_ye_mei);  
 	DDX_DateTimeCtrl_CTIME(pDX, IDC_DATETIMEPICKER_C_DATE_SHOU_CI_BING_CHENG_JI_LU ,pCommonInfo -> date_shou_ci_bing_cheng_ji_lu); 
@@ -264,8 +274,9 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_F_CS_JI_ZHU_SI_ZHI, ctrl_combo_ji_zhu_si_zhi);
 	DDX_Control(pDX, IDC_COMBO_F_CS_SHOU_SHU_SHI, ctrl_combo_shou_shu_shi);
 	DDX_Control(pDX, IDC_COMBO_F_CS_JIAN_KANG_ZHUANG_KUANG, ctrl_combo_jian_kang_zhaung_kuang);
-	
-}
+
+	DDX_Control(pDX, IDC_COMBO_F_PEN_QIANG_YAN,ctrl_combo_pen_qiang_yan);
+	}
 
 BEGIN_MESSAGE_MAP(CFemaleInputView, CPrintCaseInfoView)
 	ON_WM_CREATE()
@@ -331,9 +342,10 @@ int CFemaleInputView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	ctrl_combo_ji_zhu_si_zhi.Init( IDC_EDIT_F_CS_JI_ZHU_SI_ZHI , _T("“Ï≥£"));
 	ctrl_combo_jian_kang_zhaung_kuang.Init( IDC_EDIT_F_CS_JIAN_KANG_ZHUANG_KUANG , _T( "≤ªΩ°øµ" ) );
 	
+	ctrl_combo_pen_qiang_yan.Init(IDC_EDIT_F_PEN_QIANG_YAN,_T("”–"));
 	return 0;
 }
-
+/*
 void CFemaleInputView::DoDataExchangeOneCtrl( UINT id , CDataExchange* pDX)
 {
 	CPrintCaseInfoView::DoDataExchange( pDX );
@@ -927,4 +939,6 @@ void CFemaleInputView::DoDataExchangeOneCtrl( UINT id , CDataExchange* pDX)
 		break;
 
 	}
+
 }
+*/

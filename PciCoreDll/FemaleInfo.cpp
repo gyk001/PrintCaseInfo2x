@@ -85,6 +85,8 @@ fu_ke_Bchao_zi_gong_nei_mo(0)         //子宫内膜              -数字   //待定“AB
 	cs_fu_jian_zuo= CCascadeString(_T("异常"));           //附件（左）      *正常|异常      -填空（异常）
 	cs_fu_jian_you= CCascadeString(_T("异常"));           //附件（右）      *正常|异常      -填空（异常）
 
+	pen_qiang_yan = CCascadeString(_T("有"));           //盆腔炎      *无|有      -填空（有）
+
     nv_date_luo_kuan = CTime::GetCurrentTime();//
 }
 
@@ -117,7 +119,9 @@ void CFemaleInfo::Save2_1(CArchive& ar)
 	ar<<  mi_niao_xi_tong_gan_ran;  //泌尿系感染 *无|有
 	ar<<  xing_chuan_bo_ji_bing_shi; //性传播疾病史 *无|有
 	ar<<  lan_wei_yan;  //阑尾炎 *无|有
-	ar<<  pen_qiang_yan;  //盆腔炎 *无|有
+	//ar<<  pen_qiang_yan;  //盆腔炎 *无|有
+	pen_qiang_yan.Serialize(ar);
+						AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
 	ar<<  ji_wang_qi_ta;  //其他  -填空
 
 	/*《女方信息-个人史》*/
@@ -293,7 +297,7 @@ void CFemaleInfo::Save2_1(CArchive& ar)
 
 	nv_date_luo_kuan.Serialize64( ar );
 }
-void CFemaleInfo::Serialize(CArchive& ar)
+void CFemaleInfo::Serialize(CArchive& ar,int marjorVersion, int minjorVersion)
 {
 	if (ar.IsStoring())
 	{
@@ -301,6 +305,8 @@ void CFemaleInfo::Serialize(CArchive& ar)
 	} 
 	else
 	{
+		CString tmpstr ;
+
 		/*《女方信息：》*/
 		ar>> EN_name;				//姓名
 		ar>> EN_age;				//年龄
@@ -324,7 +330,16 @@ void CFemaleInfo::Serialize(CArchive& ar)
 		ar>>  mi_niao_xi_tong_gan_ran;  //泌尿系感染 *无|有
 		ar>>  xing_chuan_bo_ji_bing_shi; //性传播疾病史 *无|有
 		ar>>  lan_wei_yan;  //阑尾炎 *无|有
-		ar>>  pen_qiang_yan;  //盆腔炎 *无|有
+
+		if(marjorVersion>=2 && minjorVersion>2){
+			AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
+			pen_qiang_yan.Serialize(ar) ; //盆腔炎 *无|有
+					AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
+		}else{
+			AfxMessageBox( _T("/") );
+			ar>>tmpstr;
+			pen_qiang_yan.strBase = tmpstr; 
+		}
 		ar>>  ji_wang_qi_ta;  //其他  -填空
 
 		/*《女方信息-个人史》*/
