@@ -164,20 +164,11 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_ZAI_HUN,pFemaleInfo -> zai_hun);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_YA_TONG,pFemaleInfo -> ya_tong);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_XU_JIU,pFemaleInfo -> xu_jiu);
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_XING_CHUAN_BO_JI_BING_SHI,pFemaleInfo -> xing_chuan_bo_ji_bing_shi);
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_XIN_XUE_GUAN_JI_BING,pFemaleInfo -> xin_xue_guan_ji_bing);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_XI_DU,pFemaleInfo -> xi_du);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_TING_JING,pFemaleInfo -> tong_jing);
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_SHEN_ZANG_JI_BING,pFemaleInfo -> shen_zang_ji_bing);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_REN_CHEN,pFemaleInfo -> ren_chen);
-
-
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_MI_NIAO_XI_TONG_GAN_RAN,pFemaleInfo -> mi_niao_xi_tong_gan_ran);
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_LAN_WEI_YAN,pFemaleInfo -> lan_wei_yan);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_JING_LIANG,pFemaleInfo -> jing_liang);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_JIN_QIN_JIE_HUN,pFemaleInfo -> jin_qin_jie_hun);
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_JIE_HE,pFemaleInfo -> jie_he);
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_JI_WANG_GAN_YAN,pFemaleInfo -> ji_wang_gan_yan);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_HUO_DONG_DU,pFemaleInfo -> huo_dong_du);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_CS_ZI_GONG_DA_XIAO,pFemaleInfo -> cs_fu_ke_jian_cha_zi_gong_da_xiao.strBase);
 	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_CS_YING_YANG,pFemaleInfo -> cs_ying_yang.strBase);
@@ -238,9 +229,23 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString_CSTRING(pDX, IDC_COMB_F_NIAO_CHANG_GUI,pFemaleInfo -> niao_chang_gui);
 
 	
-	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_PEN_QIANG_YAN,pFemaleInfo -> pen_qiang_yan.strBase);
-	DDX_Text_CSTRING(pDX, IDC_EDIT_F_PEN_QIANG_YAN,pFemaleInfo -> pen_qiang_yan.strMore);
-
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_PEN_QIANG_YAN,pFemaleInfo -> cs_pen_qiang_yan.strBase);
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_XING_CHUAN_BO_JI_BING_SHI,pFemaleInfo -> cs_xing_chuan_bo_ji_bing_shi.strBase);
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_XIN_XUE_GUAN_JI_BING,pFemaleInfo -> cs_xin_xue_guan_ji_bing.strBase);
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_SHEN_ZANG_JI_BING,pFemaleInfo -> cs_shen_zang_ji_bing.strBase);
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_MI_NIAO_XI_TONG_GAN_RAN,pFemaleInfo -> cs_mi_niao_xi_tong_gan_ran.strBase);
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_LAN_WEI_YAN,pFemaleInfo -> cs_lan_wei_yan.strBase);
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_JIE_HE,pFemaleInfo -> cs_jie_he.strBase);
+	DDX_CBString_CSTRING(pDX,  IDC_COMBO_F_JI_WANG_GAN_YAN,pFemaleInfo -> cs_ji_wang_gan_yan.strBase);
+	
+	DDX_Text(pDX,  IDC_EDIT_F_PEN_QIANG_YAN,pFemaleInfo -> cs_pen_qiang_yan.strMore);
+	DDX_Text(pDX,  IDC_EDIT_F_XING_CHUAN_BO_JI_BING_SHI,pFemaleInfo -> cs_xing_chuan_bo_ji_bing_shi.strMore);
+	DDX_Text(pDX,  IDC_EDIT_F_XIN_XUE_GUAN_JI_BING,pFemaleInfo -> cs_xin_xue_guan_ji_bing.strMore);
+	DDX_Text(pDX,  IDC_EDIT_F_SHEN_ZANG_JI_BING,pFemaleInfo -> cs_shen_zang_ji_bing.strMore);
+	DDX_Text(pDX,  IDC_EDIT_F_MI_NIAO_XI_TONG_GAN_RAN,pFemaleInfo -> cs_mi_niao_xi_tong_gan_ran.strMore);
+	DDX_Text(pDX,  IDC_EDIT_F_LAN_WEI_YAN,pFemaleInfo -> cs_lan_wei_yan.strMore);
+	DDX_Text(pDX,  IDC_EDIT_F_JIE_HE,pFemaleInfo -> cs_jie_he.strMore);
+	DDX_Text(pDX,  IDC_EDIT_F_JI_WANG_GAN_YAN,pFemaleInfo -> cs_ji_wang_gan_yan.strMore);
 
 	DDX_DateTimeCtrl_CTIME(pDX, IDC_DATETIMEPICKER_F_DATE_LUO_KUAN ,pFemaleInfo -> nv_date_luo_kuan);
 	DDX_DateTimeCtrl_CTIME(pDX, IDC_DATETIMEPICKER_C_DATE_YE_MEI ,pCommonInfo -> date_ye_mei);  
@@ -275,7 +280,18 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_F_CS_SHOU_SHU_SHI, ctrl_combo_shou_shu_shi);
 	DDX_Control(pDX, IDC_COMBO_F_CS_JIAN_KANG_ZHUANG_KUANG, ctrl_combo_jian_kang_zhaung_kuang);
 
+
+
+	DDX_Control(pDX, IDC_COMBO_F_JI_WANG_GAN_YAN,ctrl_combo_ji_wang_gan_yan);
+	DDX_Control(pDX, IDC_COMBO_F_JIE_HE,ctrl_combo_jie_he);
+	DDX_Control(pDX, IDC_COMBO_F_SHEN_ZANG_JI_BING,ctrl_combo_shen_zang_ji_bing);
+	DDX_Control(pDX, IDC_COMBO_F_XIN_XUE_GUAN_JI_BING,ctrl_combo_xin_xue_guan_ji_bing);
+	DDX_Control(pDX, IDC_COMBO_F_MI_NIAO_XI_TONG_GAN_RAN,ctrl_combo_mi_niao_gan_ran);
+	DDX_Control(pDX, IDC_COMBO_F_XING_CHUAN_BO_JI_BING_SHI,ctrl_combo_xing_chuan_bo_ji_bing_shi);
+	DDX_Control(pDX, IDC_COMBO_F_LAN_WEI_YAN,ctrl_combo_lan_wei_yan);
 	DDX_Control(pDX, IDC_COMBO_F_PEN_QIANG_YAN,ctrl_combo_pen_qiang_yan);
+
+
 	}
 
 BEGIN_MESSAGE_MAP(CFemaleInputView, CPrintCaseInfoView)
@@ -342,7 +358,18 @@ int CFemaleInputView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	ctrl_combo_ji_zhu_si_zhi.Init( IDC_EDIT_F_CS_JI_ZHU_SI_ZHI , _T("异常"));
 	ctrl_combo_jian_kang_zhaung_kuang.Init( IDC_EDIT_F_CS_JIAN_KANG_ZHUANG_KUANG , _T( "不健康" ) );
 	
+
+
+	ctrl_combo_ji_wang_gan_yan.Init(IDC_EDIT_F_JI_WANG_GAN_YAN, _T("有") );
+    ctrl_combo_jie_he.Init(IDC_EDIT_F_JIE_HE , _T("有") );
+    ctrl_combo_shen_zang_ji_bing.Init(IDC_EDIT_F_SHEN_ZANG_JI_BING, _T("有") );
+	ctrl_combo_xin_xue_guan_ji_bing.Init(IDC_EDIT_F_XIN_XUE_GUAN_JI_BING, _T("有") );
+	ctrl_combo_mi_niao_gan_ran.Init(IDC_EDIT_F_MI_NIAO_XI_TONG_GAN_RAN, _T("有") );
+	ctrl_combo_xing_chuan_bo_ji_bing_shi.Init(IDC_EDIT_F_XING_CHUAN_BO_JI_BING_SHI, _T("有") );
+	ctrl_combo_lan_wei_yan.Init(IDC_EDIT_F_LAN_WEI_YAN, _T("有") );
 	ctrl_combo_pen_qiang_yan.Init(IDC_EDIT_F_PEN_QIANG_YAN,_T("有"));
+
+
 	return 0;
 }
 /*

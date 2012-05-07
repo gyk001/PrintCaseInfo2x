@@ -58,7 +58,12 @@ CString CCascadeString::toString(CString name)
     //CString text = name+_T("[")+strBase + _T("]");
     if (strBase==strHasMore)
     {
-        return name+  _T(":") + strMore;
+		if(strMore.IsEmpty()){
+			return name+  _T(":") + strHasMore;
+		}else{
+			 return name+  _T(":") + strMore;
+		}
+       
     }
 	else
 	{

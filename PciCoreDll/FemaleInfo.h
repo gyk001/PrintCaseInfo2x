@@ -39,14 +39,14 @@ public:
 
 
 	/*《女方信息-既往史》*/
-	CString                 ji_wang_gan_yan;                        //肝炎          *无|有
-	CString                 jie_he;                 //结核          *无|有
-	CString                 shen_zang_ji_bing;                       //肾脏疾病      *无|有
-	CString                 xin_xue_guan_ji_bing;                   //心血管疾病    *无|有
-	CString                 mi_niao_xi_tong_gan_ran;                        //泌尿系感染    *无|有
-	CString                 xing_chuan_bo_ji_bing_shi;       //性传播疾病史  *无|有
-	CString                 lan_wei_yan;                    //阑尾炎                *无|有
-	CCascadeString                 pen_qiang_yan;                  //盆腔炎                *无|有
+	CCascadeString          cs_ji_wang_gan_yan;                        //肝炎          *无|有
+	CCascadeString          cs_jie_he;                 //结核          *无|有
+	CCascadeString          cs_shen_zang_ji_bing;                       //肾脏疾病      *无|有
+	CCascadeString          cs_xin_xue_guan_ji_bing;                   //心血管疾病    *无|有
+	CCascadeString          cs_mi_niao_xi_tong_gan_ran;                        //泌尿系感染    *无|有
+	CCascadeString          cs_xing_chuan_bo_ji_bing_shi;       //性传播疾病史  *无|有
+	CCascadeString          cs_lan_wei_yan;                    //阑尾炎                *无|有
+	CCascadeString          cs_pen_qiang_yan;                  //盆腔炎                *无|有
 	CCascadeString          cs_shou_shu_shi;                   //手术史                *无|有  -填空（有）
 	CString                 ji_wang_qi_ta;                  //其他                  -填空
 

@@ -65,6 +65,14 @@ public:
     CMyComboBox ctrl_combo_ji_zhu_si_zhi;
     CMyComboBox ctrl_combo_shou_shu_shi;
 	CMyComboBox ctrl_combo_jian_kang_zhaung_kuang;
+
+	CMyComboBox ctrl_combo_ji_wang_gan_yan;
+	CMyComboBox ctrl_combo_jie_he;
+	CMyComboBox ctrl_combo_shen_zang_ji_bing;
+	CMyComboBox ctrl_combo_xin_xue_guan_ji_bing;
+	CMyComboBox ctrl_combo_mi_niao_gan_ran;
+	CMyComboBox ctrl_combo_xing_chuan_bo_ji_bing_shi;
+	CMyComboBox ctrl_combo_lan_wei_yan;
 	CMyComboBox ctrl_combo_pen_qiang_yan;
 public:
 	//更新一个控件的数据

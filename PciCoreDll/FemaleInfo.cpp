@@ -85,9 +85,17 @@ fu_ke_Bchao_zi_gong_nei_mo(0)         //子宫内膜              -数字   //待定“AB
 	cs_fu_jian_zuo= CCascadeString(_T("异常"));           //附件（左）      *正常|异常      -填空（异常）
 	cs_fu_jian_you= CCascadeString(_T("异常"));           //附件（右）      *正常|异常      -填空（异常）
 
-	pen_qiang_yan = CCascadeString(_T("有"));           //盆腔炎      *无|有      -填空（有）
-
-    nv_date_luo_kuan = CTime::GetCurrentTime();//
+    cs_ji_wang_gan_yan=CCascadeString(_T("有"));                
+    cs_jie_he=CCascadeString(_T("有"));                         
+    cs_shen_zang_ji_bing=CCascadeString(_T("有"));              
+    cs_xin_xue_guan_ji_bing=CCascadeString(_T("有"));           
+    cs_mi_niao_xi_tong_gan_ran=CCascadeString(_T("有"));        
+    cs_xing_chuan_bo_ji_bing_shi=CCascadeString(_T("有"));      
+    cs_lan_wei_yan=CCascadeString(_T("有"));                    
+    cs_pen_qiang_yan=CCascadeString(_T("有"));                  
+    cs_shou_shu_shi=CCascadeString(_T("有"));   
+   
+		 nv_date_luo_kuan = CTime::GetCurrentTime();//
 }
 
 CFemaleInfo::~CFemaleInfo()
@@ -112,16 +120,16 @@ void CFemaleInfo::Save2_1(CArchive& ar)
 	ar<< xian_bing_shi;			//现病史
 
 	/*《女方信息-既往史》*/
-	ar<<  ji_wang_gan_yan;  //肝炎 *无|有
-	ar<<  jie_he;  //结核 *无|有
-	ar<<  shen_zang_ji_bing;  //肾脏疾病 *无|有
-	ar<<  xin_xue_guan_ji_bing;  //心血管疾病 *无|有
-	ar<<  mi_niao_xi_tong_gan_ran;  //泌尿系感染 *无|有
-	ar<<  xing_chuan_bo_ji_bing_shi; //性传播疾病史 *无|有
-	ar<<  lan_wei_yan;  //阑尾炎 *无|有
+	cs_ji_wang_gan_yan.Serialize(ar);  //肝炎 *无|有
+	cs_jie_he.Serialize(ar);  //结核 *无|有
+	cs_shen_zang_ji_bing.Serialize(ar);  //肾脏疾病 *无|有
+	cs_xin_xue_guan_ji_bing.Serialize(ar);  //心血管疾病 *无|有
+	cs_mi_niao_xi_tong_gan_ran.Serialize(ar);  //泌尿系感染 *无|有
+	cs_xing_chuan_bo_ji_bing_shi.Serialize(ar); //性传播疾病史 *无|有
+	cs_lan_wei_yan.Serialize(ar);  //阑尾炎 *无|有
 	//ar<<  pen_qiang_yan;  //盆腔炎 *无|有
-	pen_qiang_yan.Serialize(ar);
-						AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
+	cs_pen_qiang_yan.Serialize(ar);
+						//AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
 	ar<<  ji_wang_qi_ta;  //其他  -填空
 
 	/*《女方信息-个人史》*/
@@ -323,6 +331,7 @@ void CFemaleInfo::Serialize(CArchive& ar,int marjorVersion, int minjorVersion)
 		ar>> xian_bing_shi;			//现病史
 
 		/*《女方信息-既往史》*/
+		/*
 		ar>>  ji_wang_gan_yan;  //肝炎 *无|有
 		ar>>  jie_he;  //结核 *无|有
 		ar>>  shen_zang_ji_bing;  //肾脏疾病 *无|有
@@ -330,15 +339,36 @@ void CFemaleInfo::Serialize(CArchive& ar,int marjorVersion, int minjorVersion)
 		ar>>  mi_niao_xi_tong_gan_ran;  //泌尿系感染 *无|有
 		ar>>  xing_chuan_bo_ji_bing_shi; //性传播疾病史 *无|有
 		ar>>  lan_wei_yan;  //阑尾炎 *无|有
-
+*/
 		if(marjorVersion>=2 && minjorVersion>2){
-			AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
-			pen_qiang_yan.Serialize(ar) ; //盆腔炎 *无|有
-					AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
+			//AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
+			
+			cs_ji_wang_gan_yan.Serialize(ar);  //肝炎 *无|有
+			cs_jie_he.Serialize(ar);  //结核 *无|有
+			cs_shen_zang_ji_bing.Serialize(ar);  //肾脏疾病 *无|有
+			cs_xin_xue_guan_ji_bing.Serialize(ar);  //心血管疾病 *无|有
+			cs_mi_niao_xi_tong_gan_ran.Serialize(ar);  //泌尿系感染 *无|有
+			cs_xing_chuan_bo_ji_bing_shi.Serialize(ar); //性传播疾病史 *无|有
+			cs_lan_wei_yan.Serialize(ar);  //阑尾炎 *无|有
+			cs_pen_qiang_yan.Serialize(ar) ; //盆腔炎 *无|有
+			//AfxMessageBox( pen_qiang_yan.strBase+_T("*")+pen_qiang_yan.strHasMore+_T("*")+pen_qiang_yan.strMore );
 		}else{
-			AfxMessageBox( _T("/") );
 			ar>>tmpstr;
-			pen_qiang_yan.strBase = tmpstr; 
+			cs_ji_wang_gan_yan.strBase = tmpstr;  //肝炎 *无|有
+			ar>>tmpstr;
+			cs_jie_he.strBase = tmpstr;  //结核 *无|有
+			ar>>tmpstr;
+			cs_shen_zang_ji_bing.strBase = tmpstr;  //肾脏疾病 *无|有
+			ar>>tmpstr;
+			cs_xin_xue_guan_ji_bing.strBase = tmpstr;  //心血管疾病 *无|有
+			ar>>tmpstr;
+			cs_mi_niao_xi_tong_gan_ran.strBase = tmpstr;  //泌尿系感染 *无|有
+			ar>>tmpstr;
+			cs_xing_chuan_bo_ji_bing_shi.strBase = tmpstr; //性传播疾病史 *无|有
+			ar>>tmpstr;
+			cs_lan_wei_yan.strBase = tmpstr;  //阑尾炎 *无|有
+			ar>>tmpstr;
+			cs_pen_qiang_yan.strBase = tmpstr; 
 		}
 		ar>>  ji_wang_qi_ta;  //其他  -填空
 
@@ -536,14 +566,14 @@ void CFemaleInfo::operator=(const CFemaleInfo& fi)
 
 
 	/*《女方信息-既往史》*/
-	ji_wang_gan_yan=fi.ji_wang_gan_yan;  //肝炎 *无|有
-	jie_he=fi.jie_he;  //结核 *无|有
-	shen_zang_ji_bing=fi.shen_zang_ji_bing;  //肾脏疾病 *无|有
-	xin_xue_guan_ji_bing=fi.xin_xue_guan_ji_bing;  //心血管疾病 *无|有
-	mi_niao_xi_tong_gan_ran=fi.mi_niao_xi_tong_gan_ran;  //泌尿系感染 *无|有
-	xing_chuan_bo_ji_bing_shi=fi.xing_chuan_bo_ji_bing_shi; //性传播疾病史 *无|有
-	lan_wei_yan=fi.lan_wei_yan;  //阑尾炎 *无|有
-	pen_qiang_yan=fi.pen_qiang_yan;  //盆腔炎 *无|有
+	cs_ji_wang_gan_yan=fi.cs_ji_wang_gan_yan;  //肝炎 *无|有
+	cs_jie_he=fi.cs_jie_he;  //结核 *无|有
+	cs_shen_zang_ji_bing=fi.cs_shen_zang_ji_bing;  //肾脏疾病 *无|有
+	cs_xin_xue_guan_ji_bing=fi.cs_xin_xue_guan_ji_bing;  //心血管疾病 *无|有
+	cs_mi_niao_xi_tong_gan_ran=fi.cs_mi_niao_xi_tong_gan_ran;  //泌尿系感染 *无|有
+	cs_xing_chuan_bo_ji_bing_shi=fi.cs_xing_chuan_bo_ji_bing_shi; //性传播疾病史 *无|有
+	cs_lan_wei_yan=fi.cs_lan_wei_yan;  //阑尾炎 *无|有
+	cs_pen_qiang_yan=fi.cs_pen_qiang_yan;  //盆腔炎 *无|有
 	
 	ji_wang_qi_ta=fi.ji_wang_qi_ta;  //其他  -填空
 	/*《女方信息-个人史》*/
