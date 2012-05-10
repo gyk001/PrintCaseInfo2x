@@ -4,7 +4,7 @@
 #define MyAppName "病例打印程序"
 #define MyAppVerName "病例打印程序 V 2.2"
 #define MyAppPublisher "guoyukun"
-;#define MyAppURL "http://www.FuyouIT.com/"
+#define MyAppURL "mailto:Gyk001@Gmail.com?subject=【生殖医学病历打印程序】使用反馈"
 ;#define MyUpdateURL "http://www.FuyouIT.com/123"
 #define MyAppExeName "PrintCaseInfo2x.exe"
 
@@ -33,10 +33,10 @@ SolidCompression=yes
 WizardImageFile=compiler:Office2007.bmp
 WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
 UninstallDisplayIcon=C:\Users\Guo\Desktop\pcisetup\uninstall.ico
-VersionInfoVersion=2.1.0.3
+VersionInfoVersion=2.3.0.1
 VersionInfoCompany=guoyukun
-VersionInfoDescription=病例打印程序V2.2安装包
-VersionInfoTextVersion=2, 2, 0, 0
+VersionInfoDescription=病例打印程序V2.3安装包
+VersionInfoTextVersion=2, 3, 0, 1
 
 [Languages]
 Name: "chinesesimp"; MessagesFile: "compiler:Default.isl"
@@ -109,6 +109,7 @@ Root: HKCR; Subkey: ".cid\ShellNew"; ValueType: string; ValueName: "NullFile"; V
 Root: HKCR; Subkey: "PrintCaseInfo2x.Document"; ValueType: string; ValueName: ""; ValueData: "PrintCaseInfo2x.Document" ; Flags:uninsdeletekey
 Root: HKCR; Subkey: "PrintCaseInfo2x.Document\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\PrintCaseInfo2x.EXE,1" ; Flags:uninsdeletekey
 Root: HKCR; Subkey: "PrintCaseInfo2x.Document\shell\open\command"; ValueType: string; ValueName: ""; ValueData: "{app}\PrintCaseInfo2x.EXE %1" ; Flags:uninsdeletekey
+
 
 
 
