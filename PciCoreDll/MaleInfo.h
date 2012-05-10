@@ -11,7 +11,7 @@ protected:
 public:
 	CMaleInfo();
 	virtual ~CMaleInfo();
-	virtual void Serialize(CArchive& ar);
+	virtual void Serialize(CArchive& ar,int marjorVersion, int minjorVersion);
 	void operator=(const CMaleInfo& mi);
 public:
 	CString EN_name;				//姓名
@@ -105,6 +105,19 @@ public:
 	/*《落款》*/
 	CString nan_yi_shi;			//医师		-填空
     CTime   date_luo_kuan;
+
+
+	CString         EN_HBSAG;
+    CString         EN_HBSAB;
+    CString         EN_HBEAG;
+
+    CString         EN_HBEAB;
+    CString         EN_HBCAB;
+    CString         EN_HAVI;
+
+    CString         EN_HCVAb;               //HCVAb         //待定
+	CString         EN_HCVAg;              //HCV-Ag        //待定
+	CString         EN_HIVAb;               //HIVAb         //待定
 
 };
 

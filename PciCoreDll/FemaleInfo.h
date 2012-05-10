@@ -60,7 +60,7 @@ public:
 	CCascadeString          cs_chu_sheng_que_xian;//出生缺陷           *无|有  -填空（有）
 	/*《女方信息-月经史》*/
 	int                     chu_chao;                       //初潮          -数字
-	int                     yue_jing_shi_yue_jing_zhou_qi1;                       //月经周期              -数字   -数字
+	CString                 yue_jing_shi_yue_jing_zhou_qi1;                       //月经周期              -数字   -数字
 	CString					yue_jing_shi_yue_jing_zhou_qi2;                       //月经周期              -数字   -数字
 	CString                 mo_ci_yue_jing;                 //末次月经              //待定
 	CString                 jing_liang;                     //经量          *正常|多|少

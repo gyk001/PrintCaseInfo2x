@@ -13,7 +13,7 @@ CFemaleInfo::CFemaleInfo()
 gong_jing_gua_pian(_T("未查")),
 /*《女方信息-月经史》*/
 chu_chao(0),                       //初潮          -数字
-yue_jing_shi_yue_jing_zhou_qi1(0),                       //月经周期              -数字   -数字
+yue_jing_shi_yue_jing_zhou_qi1(_T("")),                       //月经周期              -数字   -数字
 yue_jing_shi_yue_jing_zhou_qi2(_T("")),                       //月经周期              -数字   -数字
 
 /*《女方信息-婚育史》*/
@@ -138,8 +138,8 @@ void CFemaleInfo::Save2_1(CArchive& ar)
 	ar<<  zhong_da_jing_shen_ci_ji;  //重大精神刺激史 *无|有
 	/*《女方信息-月经史》*/
 	ar<<  chu_chao;  //初潮 -数字
-	ar<<  yue_jing_shi_yue_jing_zhou_qi1;  //月经周期 -数字 -数字
-	ar<<  yue_jing_shi_yue_jing_zhou_qi2;  //月经周期 -数字 -数字
+	ar<<  yue_jing_shi_yue_jing_zhou_qi1;  //月经周期 
+	ar<<  yue_jing_shi_yue_jing_zhou_qi2;  //月经周期 
 	ar<<  mo_ci_yue_jing;  //末次月经 //待定
 	ar<<  jing_liang;  //经量 *正常|多|少
 	ar<<  tong_jing;  //痛经 *有|无
@@ -378,7 +378,13 @@ void CFemaleInfo::Serialize(CArchive& ar,int marjorVersion, int minjorVersion)
 		ar>>  zhong_da_jing_shen_ci_ji;  //重大精神刺激史 *无|有
 		/*《女方信息-月经史》*/
 		ar>>  chu_chao;  //初潮 -数字
-		ar>>  yue_jing_shi_yue_jing_zhou_qi1;  //月经周期 -数字 -数字
+		if(marjorVersion>=2 && minjorVersion>2){
+			ar>>  yue_jing_shi_yue_jing_zhou_qi1;  //月经周期 -数字 -数字
+		}else{
+			int tmpint;
+			ar>>tmpint;
+			yue_jing_shi_yue_jing_zhou_qi1.Format(_T("%d-"),tmpint);
+		}
 		ar>>  yue_jing_shi_yue_jing_zhou_qi2;  //月经周期 -数字 -数字
 		ar>>  mo_ci_yue_jing;  //末次月经 //待定
 		ar>>  jing_liang;  //经量 *正常|多|少

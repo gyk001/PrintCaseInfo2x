@@ -142,6 +142,16 @@ void CMaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_CS_YI_CHUAN_BING_SHI, ctrl_combo_yi_chuan_bing_shi);
 	DDX_Control(pDX, IDC_COMBO_CS_BU_YUN_BU_YU, ctrl_combo_bu_yun_bu_yu_shi);
 	DDX_Control(pDX, IDC_COMBO_CS_RU_FANG, ctrl_combo_ru_fang);
+
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HIVAB,pMaleInfo -> EN_HIVAb);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HCVAG,pMaleInfo -> EN_HCVAg);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HCVAB,pMaleInfo -> EN_HCVAb);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HBSAG,pMaleInfo -> EN_HBSAG);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HBSAB,pMaleInfo -> EN_HBSAB);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HBEAG,pMaleInfo -> EN_HBEAG);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HBEAB,pMaleInfo -> EN_HBEAB);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HBCAB,pMaleInfo -> EN_HBCAB);
+	DDX_CBString_CSTRING(pDX, IDC_COMBO_EN_HAV_I,pMaleInfo -> EN_HAVI);
 }
 
 BEGIN_MESSAGE_MAP(CMaleInputView, CPrintCaseInfoView)

@@ -64,7 +64,7 @@ void CFemaleInputView::DoDataExchange(CDataExchange* pDX)
 	DDX_Text_CSTRING(pDX, IDC_EDIT_F_YUE_JING_ZHOU_QI2,pFemaleInfo -> yue_jing_zhou_qi2);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_F_YUE_JING_ZHOU_QI1,pFemaleInfo -> yue_jing_zhou_qi1);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_F_YUE_JING_SHI_YUE_JING_ZHOU_QI2,pFemaleInfo -> yue_jing_shi_yue_jing_zhou_qi2);
-	DDX_Text_INT(pDX, IDC_EDIT_F_YUE_JING_SHI_YUE_JING_ZHOU_QI1,pFemaleInfo -> yue_jing_shi_yue_jing_zhou_qi1);
+	DDX_Text_CSTRING(pDX, IDC_EDIT_F_YUE_JING_SHI_YUE_JING_ZHOU_QI1,pFemaleInfo -> yue_jing_shi_yue_jing_zhou_qi1);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_F_YOU_CE_SHU_LUAN_GUAN,pFemaleInfo -> you_ce_shu_luan_guan);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_F_YOU_CE_LUAN_CHAO_FC,pFemaleInfo -> fu_ke_B_chao_you_ce_luan_chao_Fc);
 	DDX_Text_CSTRING(pDX, IDC_EDIT_F_YOU_CE_LUAN_CHAO,pFemaleInfo -> fu_ke_B_chao_you_ce_luan_chao);

@@ -157,7 +157,7 @@ void CPrintCaseInfo2xDoc::ReadFile(CArchive& ar)
 	}
 */
 	commonInfo.Serialize( ar ,majorVersion , minorVersion);
-	maleInfo.Serialize(ar);
+	maleInfo.Serialize(ar ,majorVersion , minorVersion);
 	femaleInfo.Serialize( ar ,majorVersion , minorVersion);
 }
 
@@ -174,7 +174,7 @@ void CPrintCaseInfo2xDoc::Serialize(CArchive& ar)
 			ar<< Ser( password );
 		}
 		commonInfo.Serialize( ar ,majorVersion, minorVersion );
-		maleInfo.Serialize(ar);
+		maleInfo.Serialize(ar ,majorVersion , minorVersion);
 		femaleInfo.Serialize(ar,majorVersion , minorVersion);
 	}
 	else

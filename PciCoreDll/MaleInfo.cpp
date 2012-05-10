@@ -84,7 +84,7 @@ CMaleInfo::~CMaleInfo()
 // CMaleInfo 成员函数
 // CMaleInfo 序列化
 
-void CMaleInfo::Serialize(CArchive& ar)
+void CMaleInfo::Serialize(CArchive& ar,int marjorVersion, int minjorVersion)
 {
 	if (ar.IsStoring())
 	{
@@ -150,14 +150,33 @@ void CMaleInfo::Serialize(CArchive& ar)
 		ar<< zhi_yuan_ti;    //支原体
 		ar<< yi_yuan_ti;     //衣原体
 		/*《肝炎》*/
-		ar<< gan_yan;        //肝炎
-		ar<< EN_HIV;         //HIV
+		
+		if(false){
+			ar<< gan_yan;        //肝炎
+			ar<< EN_HIV;         //HIV
+		}else{
+			/*《男性信息-肝炎 HIV》*/
+			ar<< EN_HBSAG;
+			ar<< EN_HBSAB;
+			ar<<  EN_HBEAG;
+
+			ar<< EN_HBEAB;
+			ar<< EN_HBCAB;
+			ar<< EN_HAVI;
+
+			ar<< EN_HCVAb; //HCVAb //待定
+			ar<< EN_HCVAg; //HCV-Ag //待定
+			ar<< EN_HIVAb; //HIVAb //待定
+		}
+
 		/*《生殖激素》*/
 		ar<< sheng_zhi_ji_su;        //生殖激素
 		ar<< yi_chuan_xue_jian_cha;  //遗传学检查
 		ar<< chu_bu_zhen_duan;     //初步诊断
 		/*《落款》*/
 		ar<< nan_yi_shi;                     //医师          -填空
+
+
 	}
 	else
 	{
@@ -222,9 +241,24 @@ void CMaleInfo::Serialize(CArchive& ar)
 		ar>> lin_qiu_jun;    //淋球菌                
 		ar>> zhi_yuan_ti;    //支原体
 		ar>> yi_yuan_ti;     //衣原体
-		/*《肝炎》*/
-		ar>> gan_yan;        //肝炎
-		ar>> EN_HIV;         //HIV
+		if(marjorVersion>=2 && minjorVersion>2){
+			ar>> EN_HBSAG;
+			ar>> EN_HBSAB;
+			ar>>  EN_HBEAG;
+
+			ar>> EN_HBEAB;
+			ar>> EN_HBCAB;
+			ar>> EN_HAVI;
+
+			ar>> EN_HCVAb; //HCVAb //待定
+			ar>> EN_HCVAg; //HCV-Ag //待定
+			ar>> EN_HIVAb; //HIVAb //待定
+		}else{
+			CString unuseful;
+			/*《肝炎》*/
+			ar>> unuseful;//gan_yan;        //肝炎
+			ar>> unuseful;// EN_HIV;         //HIV
+		}
 		/*《生殖激素》*/
 		ar>> sheng_zhi_ji_su;        //生殖激素
 		ar>> yi_chuan_xue_jian_cha;  //遗传学检查
@@ -383,4 +417,16 @@ void CMaleInfo::operator=(const CMaleInfo& mi)
     nan_yi_shi=mi. nan_yi_shi;                     //医师          -填空
     date_luo_kuan = mi.date_luo_kuan;
     date_chu_zhen = mi.date_chu_zhen; //初诊时间
+
+	EN_HBSAG=mi.EN_HBSAG ;
+    EN_HBSAB=mi.EN_HBSAB ;
+    EN_HBEAG=mi. EN_HBEAG;
+
+    EN_HBEAB=mi. EN_HBEAB;
+    EN_HBCAB=mi.EN_HBCAB;
+    EN_HAVI=mi.EN_HAVI;
+	
+    EN_HCVAb=mi.EN_HCVAb; //HCVAb //待定
+	EN_HCVAg=mi.EN_HCVAg; //HCV-Ag //待定
+	EN_HIVAb=mi.EN_HIVAb; //HIVAb //待定
 }

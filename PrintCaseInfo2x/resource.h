@@ -224,7 +224,6 @@
 #define IDC_EDIT_F_XIN_XUE_GUAN_JI_BING 1119
 #define IDC_EDIT_F_XING_CHUAN_BO_JI_BING_SHI 1120
 #define IDC_EDIT_F_MI_NIAO_XI_TONG_GAN_RAN 1121
-#define IDC_EDIT_F_PEN_QIANG_YAN8       1122
 #define IDC_EDIT_F_LAN_WEI_YAN          1122
 #define IDC_EDIT_F_EN_E_2               1123
 #define IDC_EDIT_F_EN_P                 1124
@@ -326,6 +325,15 @@
 #define IDC_STATIC_BMP                  1340
 #define IDC_STATIC_GMAIL                1340
 #define IDC_STATIC_VERSION              1341
+#define IDC_COMBO_EN_HBSAG              1342
+#define IDC_COMBO_EN_HBEAB              1343
+#define IDC_COMBO_EN_HCVAB              1344
+#define IDC_COMBO_EN_HBSAB              1345
+#define IDC_COMBO_EN_HBCAB              1346
+#define IDC_COMBO_EN_HCVAG              1347
+#define IDC_COMBO_EN_HIVAB              1348
+#define IDC_COMBO_EN_HAV_I              1349
+#define IDC_COMBO_EN_HBEAG              1350
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_MENU_MALE_VIEW               32773
@@ -345,7 +353,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32788
-#define _APS_NEXT_CONTROL_VALUE         1342
+#define _APS_NEXT_CONTROL_VALUE         1351
 #define _APS_NEXT_SYMED_VALUE           106
 #endif
 #endif

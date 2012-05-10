@@ -651,7 +651,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         NewLine( pDC ,pInfo , true);
         PrintTextMult2(pDC,pInfo, toStringFomat( pFemaleInfo->chu_chao, _T(" 初潮%d岁") ));
         //月经周期
-        text.Format( _T("月经周期: %d 天/%s 天" ) , pFemaleInfo->yue_jing_shi_yue_jing_zhou_qi1 , pFemaleInfo->yue_jing_shi_yue_jing_zhou_qi2);
+        text.Format( _T("月经周期: %s 天/%s 天" ) , pFemaleInfo->yue_jing_shi_yue_jing_zhou_qi1 , pFemaleInfo->yue_jing_shi_yue_jing_zhou_qi2);
         PrintTextMult2(pDC,pInfo, text, 6 );
         //末次月经
         PrintTextMult2(pDC,pInfo, toString( pFemaleInfo->mo_ci_yue_jing ,_T("末次月经" ) ) , 6 );
@@ -1638,7 +1638,8 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         PrintText(pDC , pInfo ,  toString( pMaleInfo->yi_yuan_ti , _T(" 衣原体") ) );  
 */      
 		//////////////////////////////////////////////////////////////////////////
-        pInfoEx->MoveDown();
+/*       
+		pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         PrintText(pDC , pInfo ,  pMaleInfo->gan_yan );
@@ -1649,6 +1650,70 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->SetRight( tmpX );
         pInfoEx->drawBox(pDC);
         PrintText(pDC , pInfo , _T("肝  炎") , 0 , 0,true);  
+		*/
+
+        //////////////////////////////////////////////////////////////////////////
+        pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(LINE_HEIGHT);
+        pInfoEx->setLeft(pInfo->m_rectDraw.left+4*LINE_HEIGHT);
+        tmpY= pInfoEx->rc.top;
+        tmpX=pInfoEx->rc.Width()/3;
+        pInfoEx->setRectWidth(tmpX);
+        pInfoEx->drawBox(pDC);
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HBSAG , _T(" HBsAg")));
+        pInfoEx->MoveRight();
+        pInfoEx->setRectWidth(tmpX);
+        pInfoEx->drawBox(pDC);
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HBSAB , _T(" HBsAb")));
+        pInfoEx->MoveRight();
+        pInfoEx->SetRight(pInfo->m_rectDraw.right);
+        pInfoEx->drawBox(pDC);
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HBEAG , _T(" HBeAg")));
+        //////////////////////////////////////////////////////////////////////////
+        pInfoEx->MoveDown();
+        pInfoEx->setLeft(pInfo->m_rectDraw.left+4*LINE_HEIGHT);
+        pInfoEx->setRectHeight(LINE_HEIGHT);
+        tmpX=pInfoEx->rc.Width()/3;
+        pInfoEx->setRectWidth(tmpX);
+        pInfoEx->drawBox(pDC);
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HBEAB , _T(" HBeAb")));
+        pInfoEx->MoveRight();
+        pInfoEx->setRectWidth(tmpX);
+        pInfoEx->drawBox(pDC);
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HBCAB , _T(" HBcAb")));
+        pInfoEx->MoveRight();
+        pInfoEx->SetRight(pInfo->m_rectDraw.right);
+        pInfoEx->drawBox(pDC);      
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HAVI , _T(" HAV-I")));
+        //////////////////////////////////////////////////////////////////////////
+        pInfoEx->MoveDown();
+        pInfoEx->setLeft(pInfo->m_rectDraw.left+4*LINE_HEIGHT);
+        pInfoEx->setRectHeight(LINE_HEIGHT);
+        tmpX=pInfoEx->rc.Width()/3;
+        pInfoEx->setRectWidth(tmpX);
+        pInfoEx->drawBox(pDC);
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HCVAb , _T(" HCVAb")));
+        pInfoEx->MoveRight();
+        pInfoEx->setRectWidth(tmpX);
+        pInfoEx->drawBox(pDC);
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HCVAg , _T(" HCV-Ag")));
+        pInfoEx->MoveRight();
+        pInfoEx->SetRight(pInfo->m_rectDraw.right);
+        pInfoEx->drawBox(pDC);      
+        PrintText(pDC,pInfo,toString( pMaleInfo->EN_HIVAb , _T(" HIVAb")));
+        //////////////////////////////////////////////////////////////////////////
+        pInfoEx->rc.top = tmpY;
+        pInfoEx->setLeft(pInfo->m_rectDraw.left);
+        pInfoEx->setRectWidth(4*LINE_HEIGHT);
+        pInfoEx->drawBox(pDC);
+        pInfoEx->setRectHeight(LINE_HEIGHT);
+        PrintText(pDC,pInfo,_T("肝炎"),0,0,true);
+        pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(LINE_HEIGHT);
+        PrintText(pDC,pInfo,_T("HIV"),0,0,true);
+        pInfoEx->MoveDown();
+        pInfoEx->setRectHeight(LINE_HEIGHT);
+
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT);
@@ -1671,7 +1736,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->setRectHeight(LINE_HEIGHT);
         PrintText(pDC , pInfo , _T("初步诊断:") );
         pInfoEx->MoveDown();
-        pInfoEx->setRectHeight( 9*LINE_HEIGHT);
+        pInfoEx->setRectHeight( 8*LINE_HEIGHT);
         pInfoEx->rc.left += MUTI_TEXT_BLANK_WIDTH;
         pInfoEx->rc.right -= MUTI_TEXT_BLANK_WIDTH;
 
