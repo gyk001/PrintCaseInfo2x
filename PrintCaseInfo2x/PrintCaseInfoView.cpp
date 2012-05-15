@@ -306,6 +306,7 @@ CString CPrintCaseInfoView::getPrintStringForNumWithUnit(CString num,CString uni
 }
 void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
 {
+	pDC->MoveTo(0,0);
     pDC->LineTo(100,100);
 
     CPrintCaseInfo2xDoc* pDoc =(CPrintCaseInfo2xDoc*) GetDocument();
@@ -332,7 +333,8 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
     boldFont.DeleteObject();
     boldFont.CreateFontIndirect(&lf);
     //正文字体 --  小四
-    mainFont.CreatePointFont(102,_T("宋体"),pDC);
+    //mainFont.CreatePointFont(102,_T("宋体"),pDC);
+    mainFont.CreatePointFont(120,_T("宋体"),pDC);
     mainFont.GetLogFont(&lf);
     mainFont.DeleteObject();
     mainFont.CreateFontIndirect(&lf);
@@ -667,7 +669,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->setRectHeight(5*LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         NewLine( pDC ,pInfo , true);
-        //近亲结婚
+        //
         PrintTextMult2(pDC,pInfo, toString( pFemaleInfo->jin_qin_jie_hun , _T(" 近亲结婚")  ) );
         //再婚
         PrintTextMult2(pDC,pInfo, toString( pFemaleInfo->zai_hun , _T("再婚") ) );    
@@ -800,7 +802,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight(4*LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
-        NewHalfLine( pDC , pInfo , true );
+        NewSmallHalfLine( pDC , pInfo , true );
         //外阴
         PrintTextMult2(pDC,pInfo, pFemaleInfo->cs_wai_yin.toString(_T(" 外阴")) , 6 );        
         //阴道
@@ -1321,9 +1323,9 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT);
 		pInfoEx->MoveDown();
-		pInfoEx->setRectHeight(4*LINE_HEIGHT);
+		pInfoEx->setRectHeight(6*LINE_HEIGHT);
 		pInfoEx->drawBox(pDC);
-		pInfoEx->setRectHeight( 4*LINE_HEIGHT);
+		pInfoEx->setRectHeight( 6*LINE_HEIGHT);
 		pDC->SelectObject(&boldFont);
 		PrintTextMult2(pDC,pInfo,_T("现病史：") , 0 );
 		tmpX = pInfoEx->cur.x;
@@ -1361,41 +1363,104 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
         pInfoEx->setLeft(pInfo->m_rectDraw.left);
-        pInfoEx->setRectHeight( 8*LINE_HEIGHT);
+        pInfoEx->setRectHeight( 4*LINE_HEIGHT);
         pInfoEx->setRectWidth(2*LINE_HEIGHT);
         pInfoEx->drawBox(pDC);
         PrintTextV(pDC,pInfo,_T("个人史"));
         pInfoEx->MoveRight();
         pInfoEx->SetRight(pInfo->m_rectDraw.right);
         pInfoEx->drawBox(pDC);
-        pInfoEx->setRectHeight( LINE_HEIGHT );
-        pInfoEx->MoveDown();
+ 		pInfoEx->setRectHeight( LINE_HEIGHT/2 );
+   		
+		pInfoEx->MoveDown();
+		pInfoEx->setRectHeight( LINE_HEIGHT );    
 
-
-
-        pInfoEx->setRectHeight( LINE_HEIGHT );
-        PrintText( pDC , pInfo , toString( pMaleInfo->zhong_da_jing_sheng_ci_ji , _T( " 重大精神刺激史" ) ) );
-        pInfoEx->MoveDown();
-        pInfoEx->setRectHeight( LINE_HEIGHT );
+        pInfoEx->setLeft(pInfo->m_rectDraw.left+2*LINE_HEIGHT);
+        tmpY= pInfoEx->rc.top;
+        tmpX=pInfoEx->rc.Width()/2;
+        pInfoEx->setRectWidth(tmpX);
+        //pInfoEx->drawBox(pDC);
+		PrintText( pDC , pInfo , toString( pMaleInfo->xu_jiu , _T( " 酗酒" ) ) );
+        PrintText(pDC,pInfo, pMaleInfo->ci_xi_yan.toString( _T(" 吸烟:%d支/天") ,_T(" 吸烟:无") ) );
+        pInfoEx->MoveRight();
+        pInfoEx->SetRight(pInfo->m_rectDraw.right);
+       // pInfoEx->drawBox(pDC);
         PrintText (pDC , pInfo , toString( pMaleInfo->jian_kang_zhuang_kuang_guo_qu , _T( " 健康状况：过去" ) ) );
-        pInfoEx->MoveDown();
-        pInfoEx->setRectHeight( LINE_HEIGHT );
+
+		pInfoEx->MoveDown();
+		pInfoEx->setRectHeight( LINE_HEIGHT );
+        pInfoEx->setLeft(pInfo->m_rectDraw.left+2*LINE_HEIGHT);
+        tmpY= pInfoEx->rc.top;
+        tmpX=pInfoEx->rc.Width()/2;
+        pInfoEx->setRectWidth(tmpX);
+       // pInfoEx->drawBox(pDC);
+		PrintText(pDC,pInfo, pMaleInfo->cs_yao_wu_guo_min.toString( _T(" 药物过敏史") ) );
+        pInfoEx->MoveRight();
+        pInfoEx->SetRight(pInfo->m_rectDraw.right);
+        //pInfoEx->drawBox(pDC);
         PrintText( pDC , pInfo , toString( pMaleInfo->jian_kang_zhuang_kuang_xian_zai , _T( "          现在" ) ) );
-        pInfoEx->MoveDown();
-        pInfoEx->setRectHeight( LINE_HEIGHT );    
+
+		pInfoEx->MoveDown();
+		pInfoEx->setRectHeight( LINE_HEIGHT );
+		pInfoEx->setLeft(pInfo->m_rectDraw.left+2*LINE_HEIGHT);
+        tmpY= pInfoEx->rc.top;
+        tmpX=pInfoEx->rc.Width()/2;
+        pInfoEx->setRectWidth(tmpX);
+        //pInfoEx->drawBox(pDC);
+		PrintText( pDC , pInfo , toString( pMaleInfo->zhong_da_jing_sheng_ci_ji , _T( " 重大精神刺激史" ) ) );
+        pInfoEx->MoveRight();
+        pInfoEx->SetRight(pInfo->m_rectDraw.right);
+        //pInfoEx->drawBox(pDC);
         PrintText( pDC , pInfo , pMaleInfo->cs_chu_sheng_que_xian.toString(  _T( " 出生缺陷" ) ) );
 
 
+
+		pInfoEx->MoveDown();
+		pInfoEx->setRectHeight( LINE_HEIGHT/2 );
+
+
+
+
+
+
+/*
+
 		pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );
+		
+		PrintText( pDC , pInfo , toString( pMaleInfo->xu_jiu , _T( " 酗酒" ) ) );
+        PrintText(pDC,pInfo, pMaleInfo->ci_xi_yan.toString( _T(" 吸烟:%d支/天") ,_T(" 吸烟:无") ) );
+        PrintText (pDC , pInfo , toString( pMaleInfo->jian_kang_zhuang_kuang_guo_qu , _T( " 健康状况：过去" ) ) );
+
+
+        pInfoEx->MoveDown();
+        pInfoEx->setRectHeight( LINE_HEIGHT );
+		PrintText(pDC,pInfo, pMaleInfo->cs_yao_wu_guo_min.toString( _T(" 药物过敏史") ) );
+        PrintText( pDC , pInfo , toString( pMaleInfo->jian_kang_zhuang_kuang_xian_zai , _T( "                   现在" ) ) );
+
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight( LINE_HEIGHT );    
+				PrintText( pDC , pInfo , toString( pMaleInfo->zhong_da_jing_sheng_ci_ji , _T( " 重大精神刺激史" ) ) );
+        PrintText( pDC , pInfo , pMaleInfo->cs_chu_sheng_que_xian.toString(  _T( " 出生缺陷" ) ) );
+		*/
+
+/*
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight( LINE_HEIGHT );
+		
+		PrintText( pDC , pInfo , toString( pMaleInfo->xu_jiu , _T( "酗酒" ) ) );
         PrintText(pDC,pInfo, pMaleInfo->ci_xi_yan.toString( _T(" 吸烟:%d支/天") ,_T(" 吸烟:无") ) );  
-        PrintText( pDC , pInfo , toString( pMaleInfo->xu_jiu , _T( "酗酒" ) ) );
+
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );
         PrintText(pDC,pInfo, pMaleInfo->cs_yao_wu_guo_min.toString( _T(" 药物过敏史") ) );
+		pInfoEx->MoveDown();
+        pInfoEx->setRectHeight( LINE_HEIGHT );
+		PrintText( pDC , pInfo , toString( pMaleInfo->zhong_da_jing_sheng_ci_ji , _T( " 重大精神刺激史" ) ) );
        
         pInfoEx->MoveDown();
         pInfoEx->setRectHeight( LINE_HEIGHT );    
+		*/
         //////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
         pInfoEx->setLeft(pInfo->m_rectDraw.left);
@@ -1408,9 +1473,10 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveRight();
         pInfoEx->SetRight(pInfo->m_rectDraw.right);
         pInfoEx->drawBox(pDC);
-        PrintText(pDC,pInfo, toString( pMaleInfo->jin_qin_jie_hun, _T(" 近亲结婚") )  , 1, 20 );
-        PrintText(pDC,pInfo, toString( pMaleInfo->zai_hun, _T("再婚") )  );
-        //////////////////////////////////////////////////////////////////////////
+        PrintText(pDC,pInfo, toString( pMaleInfo->zai_hun, _T(" 再婚") )  , 1, 20 );
+		PrintText(pDC,pInfo, toString( pMaleInfo->jin_qin_jie_hun, _T("近亲结婚") )  );
+          
+		//////////////////////////////////////////////////////////////////////////
         pInfoEx->MoveDown();
         pInfoEx->setLeft(pInfo->m_rectDraw.left);
         pInfoEx->setRectHeight(4*LINE_HEIGHT);
@@ -1600,7 +1666,7 @@ void CPrintCaseInfoView::OnPrint(CDC* pDC, CPrintInfo* pInfo)
         pInfoEx->MoveRight();
         pInfoEx->SetRight( pInfo->m_rectDraw.right );
 
-        PrintText(pDC , pInfo ,  toString( pMaleInfo->zhi_yuan_ti , _T(" 支原体") ) );  
+       // PrintText(pDC , pInfo ,  toString( pMaleInfo->zhi_yuan_ti , _T(" 支原体") ) );  
 		PrintText(pDC , pInfo ,  toString( pMaleInfo->yi_yuan_ti , _T(" 衣原体") ) );  
 		
         /*
